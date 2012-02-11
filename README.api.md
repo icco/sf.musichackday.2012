@@ -2,7 +2,7 @@
 
 Here are the backend endpoints that the web frontend talks to.
 
-## POST /api/save.json
+## {GET.POST} /api/project.json
 
     {
       "user": "reed",
