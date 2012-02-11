@@ -8,12 +8,14 @@
     <%= stylesheet_link_tag :buttons %>
     
     <%= javascript_include_tag "jquery" %>
-    <%= javascript_include_tag "soundmanager2/soundmanager2/script/soundmanager2" %>
+    <%= javascript_include_tag "soundmanager2/script/soundmanager2" %>
     <%= javascript_include_tag "mixboard-models" %>
     <%= javascript_include_tag "mixboard-ui" %>
     <%= javascript_include_tag "mixboard-app" %>
     
     <script type="text/javascript">
+      
+      
       var SOUND_DATA = {
           "s0001": [{
               "name": "Buried",
@@ -29,8 +31,8 @@
     </script>
     
     <script type="text/javascript">
-      // main() defined in mixboard-app.js
-      main();
+      var DEBUG = true;
+      main(); // defined in mixboard-app.js
     </script>
   </head>
   <body>

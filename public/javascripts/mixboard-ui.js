@@ -206,3 +206,15 @@ UI.time_format = function(ms) {
 
 	return string;
 }
+
+/* random helper functions */
+
+function max_duration(arr) {
+    var max = 0;
+    $.each(arr, function() {
+        if(this.duration > max) {
+            max = this.duration;
+        }
+    });
+    return max;
+}

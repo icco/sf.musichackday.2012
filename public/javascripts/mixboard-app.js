@@ -14,14 +14,13 @@ function main() {
   // Start up JQuery
   $(function() {
     // Start up Sound Manager
-    console.log("soundmanager: ");
-    console.log(soundManager);
     soundManager.url = '/javascripts/soundmanager2/swf/'; // directory where SM2 .SWFs live
     soundManager.debugMode = false;
     soundManager.debugFlash = false;
     soundManager.multiShot = true; // multiple instances of a playing song
 
     soundManager.onready(function() {
+      if(DEBUG) console.log("soundmanager loaded!");
       run();
     });
     
@@ -33,7 +32,7 @@ function main() {
 
 // Stuff loaded, lets get goin'
 function run() {
-    console.log(welcome());
+    if(DEBUG) console.log(welcome());
 
     UI.bind();
 
