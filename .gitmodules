@@ -1,0 +1,3 @@
+[submodule "public/javascripts/soundmanager2"]
+	path = public/javascripts/soundmanager2
+	url = git://github.com/scottschiller/SoundManager2.git
