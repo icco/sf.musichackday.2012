@@ -51,6 +51,9 @@ function Octopus() {
   // The tracks in the console.
 	// use it as an array keyed with song_id.
 	this.songs = {};
+	
+	// this is the song_id of the selected / highlighted song.
+	this.selected = null;
 }
 
 /* add a sound to app */
