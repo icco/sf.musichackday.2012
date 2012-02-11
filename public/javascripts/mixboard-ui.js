@@ -87,10 +87,10 @@ UI.update_soundList = function() {
 
     // add the div to the page, if it isn't already there
     if(!$('#soundlist').has('#'+this.data.id).length) {
-        div = UI.div_sound(this);
-        $('#soundlist').append(div);
+      div = UI.div_sound(this);
+      $('#soundlist').append(div);
     } else {
-        div = $('#'+this.data.id);
+      div = $('#'+this.data.id);
     }
 
   	// set the sound length
@@ -111,7 +111,7 @@ UI.update_soundList = function() {
 		  scrub_bar.append(timestamp);
       div.append(scrub_bar);
     } else {
-        scrub_bar = div.find('.scrub-bar');
+      scrub_bar = div.find('.scrub-bar');
     }
     
     if(this.manager.position) {
