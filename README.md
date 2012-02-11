@@ -54,14 +54,14 @@ The Mixboard records your live mixing for future editing. The Mixboard also lets
   * <http://wiki.musichackday.org/index.php?title=SF_Music_Hack_Day_2012>
   * <http://www.padrinorb.com/guides>
   
-## Getting Flash to work
+### Getting Flash to work
   
   You might not have to do this, but...
 
   * Turn flashblock off, noob.
-	* Add mixboard folder to http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html
-	* In mixboard-app change `soundManager.url = '/path/to/sm2-flash-movies/'; // directory where SM2 .SWFs live`
-	* if this doesn't fix it, you need to run on http://localhost
+  * Add mixboard folder to http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html
+  * In mixboard-app change `soundManager.url = '/path/to/sm2-flash-movies/'; // directory where SM2 .SWFs live`
+  * if this doesn't fix it, you need to run on http://localhost
 
 ## Pitches
 
