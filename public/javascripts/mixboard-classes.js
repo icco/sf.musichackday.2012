@@ -68,19 +68,15 @@ Octopus.prototype.get = function(sound_id) {
 /* Play the mixboard */
 Octopus.prototype.play = function(sound_id) {
   $.each(this.songs, function() {
-    this.stop();
-  });
-  
-  //UI.update_soundlist();
-  
-  $.each(this.songs, function() {
     this.play();
   });
 }
 
 /* Pause the mixboard */
 Octopus.prototype.pause = function(sound_id) {
-  // TODO: pause the main mixboard
+  $.each(this.songs, function() {
+    this.pause();
+  });
 }
 
 /* plays or pauses either a specific song or all songs. returns the play state (pause/play) as a boolean (0/1) */

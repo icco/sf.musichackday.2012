@@ -5,6 +5,7 @@ var UI = {};
 UI.bind = function() {
   // Main mixboard play button
   $('#mixboard').append(UI.button('Play', null).attr('id', 'octopus-play'));
+  $('#mixboard').append(UI.button('Pause', null).attr('id', 'octopus-pause'));
   
   // Main mixboard play
   $('#octopus-play').click(function() {
