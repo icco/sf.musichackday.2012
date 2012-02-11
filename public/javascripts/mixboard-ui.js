@@ -1,9 +1,13 @@
 /* VIEW */
 var UI = {};
 
+/* Instance vars */
+// song_id of the song currently selected / highlighted on the UI
+UI.selected = null;
+
 // Assembles the UI, binds events
 UI.bind = function() {
-  // Main mixboard play button
+  // Main mixboard play/pause buttons
   $('#mixboard').append(UI.button('Play', null).attr('id', 'octopus-play'));
   $('#mixboard').append(UI.button('Pause', null).attr('id', 'octopus-pause'));
 
@@ -34,6 +38,16 @@ UI.bind = function() {
   $('.sound .button.mark').live('click', function() {
     var percentage = octopus.mark($(this).parent().attr('id'));
     UI.mark($(this).parent().attr('id'), percentage);
+  });
+
+  // bind number keys to markers
+  $('html').keyup(function(key_event) {
+    var ANSI_OFFSET = 48;
+    var key = key_event.keyCode - ANSI_OFFSET;
+    
+    if(key >= 1 && key <= 9) {
+      octopus.cue(UI.selected, key);
+    }
   });
 
   // dragging the scrub bar
@@ -164,7 +178,7 @@ UI.mark = function(sound_id, percentage) {
 
   // text in scrub bar
   var span = UI.span();
-  span.html(UI.mark_id_to_letter(octopus.get(sound_id).mark_count));
+  span.html(octopus.get(sound_id).marks.last().name);
   span.attr('class', 'scrub-mark-text');
   scrub_mark.append(span);
 
@@ -238,7 +252,8 @@ UI.DIV_GENERIC = function(div_class) {
 }
 
 UI.mark_id_to_letter = function(int) {
-  return String.fromCharCode(64+int);
+  //return String.fromCharCode(64+int);
+  return int;
 }
 
 /* takes milliseconds, returns a nice pretty string */

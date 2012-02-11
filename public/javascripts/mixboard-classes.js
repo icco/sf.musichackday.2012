@@ -1,6 +1,10 @@
 /* bookmark class */
-function Mark(position) {
+// This is a 'cue' on a song.
+// position is the song time in miliseconds where the mark is added.
+// name is the name of this mark displayed on the ui, and used for jumping directly to the mark.
+function Mark(position, name) {
   this.position = position;
+  this.name = name;
 }
 
 
@@ -40,7 +44,10 @@ Sound.prototype.stop = function() {
 Sound.prototype.scrub = function(percentage) {
   this.manager.setPosition(percentage * this.manager.duration);
 }
-
+Sound.prototype.mark = function(position) {
+  this.marks.push(new Mark(position, ++this.mark_count));
+  //this.marks.sort(sortMarks);
+}
 
 
 
@@ -60,7 +67,7 @@ function Octopus() {
 Octopus.prototype.add = function(sound) {
 	this.songs[sound.data.id] = sound;
 	
-	// add the fist mark by default
+	// add the fist mark by default?
 }
 
 /* get a sound object from an id */
@@ -98,14 +105,12 @@ Octopus.prototype.toggle = function(sound_id) {
 	return play_state;
 }
 
-// adds the bookmark to the metadata. returns the percentage played at this mark
+// adds mark/cue to the Song. returns the percentage played at this mark
 Octopus.prototype.mark = function(sound_id) {
   var song = this.songs[sound_id];
   var position = song.manager.position;
 
-  song.marks.push(new Mark(position));
-  song.marks.sort(sortMarks);
-  song.mark_count++;
+  song.mark(position);
 
   return position/song.manager.duration;
 }
@@ -117,4 +122,9 @@ function sortMarks(a, b) {
   } else {
     return 0;
   }
+}
+
+// Jumps the song specified by song_id to the mark number
+Octopus.prototype.cue = function(song_id, mark_num) {
+  
 }
