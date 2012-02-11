@@ -5,9 +5,11 @@ gem 'rack', "~> 1.4.1"
 
 # Project requirements
 gem "chronic"
+gem "ruby-echonest", :require => 'echonest' # https://github.com/youpy/ruby-echonest
 gem "json"
 gem 'rake'
 gem 'sinatra-flash', :require => 'sinatra/flash'
+gem 'soundcloud' # https://github.com/soundcloudlabs/soundcloud-ruby
 
 # Component requirements
 gem 'rack-less'
