@@ -19,7 +19,7 @@ function main() {
     soundManager.multiShot = true; // multiple instances of a playing song
 
     soundManager.onready(function() {
-      if(DEBUG) console.log("soundmanager loaded!");
+      if (DEBUG) console.log("soundmanager loaded!");
       run();
     });
     
@@ -31,14 +31,14 @@ function main() {
 
 // Stuff loaded, lets get goin'
 function run() {
-    if(DEBUG) console.log(welcome());
+  if (DEBUG) console.log(welcome());
 
-    UI.bind();
+  UI.bind();
 
-    octopus.add(new Sound('s0001'));
-    octopus.add(new Sound('s0002'));
+  octopus.add(new Sound('s0001'));
+  octopus.add(new Sound('s0002'));
 
-    UI.mainLoop();
+  UI.mainLoop();
 }
 
 function soundLoop() {
