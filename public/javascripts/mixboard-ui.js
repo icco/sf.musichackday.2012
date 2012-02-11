@@ -1,6 +1,7 @@
 /* VIEW */
 var UI = {};
 UI.bind = function() {
+  // Main mixboard play/pause
   $('#octopus-play').click(function() {
       octopus.play();
   });
@@ -10,6 +11,8 @@ UI.bind = function() {
   });
 
   $('.sound .button.play').live('click', function() {
+    if(DEBUG) console.log("PLAY clicked");
+    
 		// change button text when toggling play/pause
 		playing = octopus.toggle($(this).parent().attr('id'));
 	
@@ -18,16 +21,19 @@ UI.bind = function() {
 		} else {
 				$(this).html('Play');
 		}
+		
 		UI.update();
   });
   
   $('.sound .button.mark').live('click', function() {
+    if(DEBUG) console.log("MARK clicked");
+    
     var percentage = octopus.mark($(this).parent().attr('id'));
     UI.mark($(this).parent().attr('id'), percentage);
   });
   
   $('.sound .button.use').live('click', function() {
-
+    if(DEBUG) console.log("USE clicked");
   });
 
   // dragging the scrub bar
