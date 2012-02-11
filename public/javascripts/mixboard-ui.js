@@ -6,12 +6,12 @@ UI.bind = function() {
   // Main mixboard play button
   $('#mixboard').append(UI.button('Play', null).attr('id', 'octopus-play'));
   $('#mixboard').append(UI.button('Pause', null).attr('id', 'octopus-pause'));
-  
+
   // Main mixboard play
   $('#octopus-play').click(function() {
       octopus.play();
   });
-  
+
   // Main mixboard pause
   $('#octopus-pause').click(function() {
       octopus.pause();
@@ -21,16 +21,16 @@ UI.bind = function() {
   $('.sound .button.play').live('click', function() {
 		// change button text when toggling play/pause
 		playing = octopus.toggle($(this).parent().attr('id'));
-	
+
 		if(playing) {
 				$(this).html('Pause');
 		} else {
 				$(this).html('Play');
 		}
-		
+
 		UI.update();
   });
-  
+
   $('.sound .button.mark').live('click', function() {
     var percentage = octopus.mark($(this).parent().attr('id'));
     UI.mark($(this).parent().attr('id'), percentage);
@@ -43,7 +43,7 @@ UI.bind = function() {
     var scrub_bar_startY = 0;
     var scrub_bar_start_offset = 0;
     var scrub_bar_pid = 0;
-    
+
     $('.scrub-bar').live('mousedown', function(mouse) {
       scrub_bar_startX = mouse.pageX;
       scrub_bar_startY = mouse.pageY;
@@ -51,7 +51,7 @@ UI.bind = function() {
       scrub_bar_drag = true;
       scrub_bar_pid = $(this).parent().attr('id');
     });
-    
+
     $('body').mousemove(function(mouse) {
       if(scrub_bar_drag) {
         var deltaX = mouse.pageX - scrub_bar_startX;
@@ -63,7 +63,7 @@ UI.bind = function() {
         octopus.get(scrub_bar_pid).scrub(scrub_percentage);
       }
     });
-    
+
     $('body').mouseup(function() {
         scrub_bar_drag = false;
     });
@@ -122,7 +122,7 @@ UI.update_soundList = function() {
     } else {
       scrub_bar = div.find('.scrub-bar');
     }
-    
+
     if(this.manager.position) {
       var left_offset = div.outerWidth() * this.manager.position/this.duration;
       scrub_bar.css('left', left_offset);
@@ -198,9 +198,9 @@ UI.div_mixboard_sound = function(sound) {
   var div = $(document.createElement('div'));
   div.attr('id', sound.data.id);
   div.attr('class', 'mixboard-sound');
-  
+
   div.append(sound.data.name);
-  
+
   return div;
 }
 
@@ -266,12 +266,12 @@ UI.time_format = function(ms) {
 
 function max_duration(arr) {
   var max = 0;
-  
+
   $.each(arr, function() {
     if(this.duration > max) {
       max = this.duration;
     }
   });
-  
+
   return max;
 }
