@@ -2,11 +2,9 @@
 
 Here are the backend endpoints that the web frontend talks to.
 
-## {GET.POST} /api/project.json
+## {GET.POST} /api/project/:user/:project/history.json
 
     {
-      "user": "reed",
-      "project": "dubstep 5",
       "ms": {
         "song1 name / id": {
           "volume": diff,
