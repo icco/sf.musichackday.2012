@@ -36,7 +36,7 @@ function run() {
 
     UI.bind();
 
-    //octopus.add(new Sound('s0001'));
+    octopus.add(new Sound('s0001'));
     //octopus.add(new Sound('s0002'));
 
     UI.mainLoop();
