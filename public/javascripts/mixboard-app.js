@@ -1,9 +1,8 @@
 /*
  * mixboard-app.js
- * reed morse, nat welch
+ * @author reed morse, nat welch
  * 
  * You should include this app last (models and UI need to load first).
- * 
  */
 
 var soundManager;
@@ -15,8 +14,8 @@ function main() {
   $(function() {
     // Start up Sound Manager
     soundManager.url = '/javascripts/soundmanager2/swf/'; // directory where SM2 .SWFs live
-    soundManager.debugMode = false;
-    soundManager.debugFlash = false;
+    soundManager.debugMode = DEBUG;
+    soundManager.debugFlash = DEBUG;
     soundManager.multiShot = true; // multiple instances of a playing song
 
     soundManager.onready(function() {
@@ -37,7 +36,7 @@ function run() {
     UI.bind();
 
     octopus.add(new Sound('s0001'));
-    //octopus.add(new Sound('s0002'));
+    octopus.add(new Sound('s0002'));
 
     UI.mainLoop();
 }
