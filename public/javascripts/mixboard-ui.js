@@ -1,18 +1,23 @@
 /* VIEW */
 var UI = {};
+
+// Assembles the UI, binds events
 UI.bind = function() {
-  // Main mixboard play/pause
+  // Main mixboard play button
+  $('#mixboard').append(UI.button('Play', null).attr('id', 'octopus-play'));
+  
+  // Main mixboard play
   $('#octopus-play').click(function() {
       octopus.play();
   });
   
+  // Main mixboard pause
   $('#octopus-pause').click(function() {
       octopus.pause();
   });
 
+  // Individual sound play / pause
   $('.sound .button.play').live('click', function() {
-    if(DEBUG) console.log("PLAY clicked");
-    
 		// change button text when toggling play/pause
 		playing = octopus.toggle($(this).parent().attr('id'));
 	
@@ -26,14 +31,8 @@ UI.bind = function() {
   });
   
   $('.sound .button.mark').live('click', function() {
-    if(DEBUG) console.log("MARK clicked");
-    
     var percentage = octopus.mark($(this).parent().attr('id'));
     UI.mark($(this).parent().attr('id'), percentage);
-  });
-  
-  $('.sound .button.use').live('click', function() {
-    if(DEBUG) console.log("USE clicked");
   });
 
   // dragging the scrub bar
@@ -43,6 +42,7 @@ UI.bind = function() {
     var scrub_bar_startY = 0;
     var scrub_bar_start_offset = 0;
     var scrub_bar_pid = 0;
+    
     $('.scrub-bar').live('mousedown', function(mouse) {
       scrub_bar_startX = mouse.pageX;
       scrub_bar_startY = mouse.pageY;
@@ -50,6 +50,7 @@ UI.bind = function() {
       scrub_bar_drag = true;
       scrub_bar_pid = $(this).parent().attr('id');
     });
+    
     $('body').mousemove(function(mouse) {
       if(scrub_bar_drag) {
         var deltaX = mouse.pageX - scrub_bar_startX;
@@ -61,6 +62,7 @@ UI.bind = function() {
         octopus.get(scrub_bar_pid).scrub(scrub_percentage);
       }
     });
+    
     $('body').mouseup(function() {
         scrub_bar_drag = false;
     });
@@ -76,7 +78,7 @@ UI.update = function() {
 	//if(DEBUG) Knowledge.time_start();
 
   UI.update_soundList();
-  UI.update_mainlist();
+  UI.update_mixboard();
 
 	//if(DEBUG) Knowledge.time_end();
 	//if(DEBUG) Knowledge.time_print();
@@ -84,7 +86,7 @@ UI.update = function() {
 // redraw the list of sounds
 UI.update_soundList = function() {
   var max_length = max_duration(octopus.songs);
-  var width = $('#canvas').width();
+  var width = $('#soundlist').width();
 
   $.each(octopus.songs, function() {
     // in here, THIS refers to the Song object.
@@ -92,11 +94,11 @@ UI.update_soundList = function() {
     var div;
 
     // add the div to the page, if it isn't already there
-    if(!$('#soundlist').has('#'+this.data.id).length) {
+    if(!$('#soundlist:has(#'+this.data.id+')').length) {
       div = UI.div_sound(this);
       $('#soundlist').append(div);
     } else {
-      div = $('#'+this.data.id);
+      div = $('#soundlist #'+this.data.id);
     }
 
   	// set the sound length
@@ -128,14 +130,35 @@ UI.update_soundList = function() {
   });
 }
 
-UI.update_mainlist = function() {
-  
+UI.update_mixboard = function() {
+  var max_length = max_duration(octopus.songs);
+  var width = $('#mixboard').width();
+
+  $.each(octopus.songs, function() {
+    // in here, THIS refers to the Song object.
+    var div;
+
+    // add the div to the page, if it isn't already there
+    if(!$('#mixboard:has(#'+this.data.id+')').length) {
+      div = UI.div_mixboard_sound(this);
+      $('#mixboard').append(div);
+    } else {
+      div = $('#mixboard #'+this.data.id);
+    }
+
+/*
+    // div's width is calculated via song length
+    var new_width = width * (this.duration/max_length);
+    new_width -= 2 * parseInt(div.css('padding-left'));
+    div.css('width', new_width);
+*/
+  });
 }
 
 UI.mark = function(sound_id, percentage) {
-  // add the scrub bar
+  // add the position bar
   var scrub_mark = UI.div_scrub_mark();
-  var left_offset = percentage * $('#'+sound_id).outerWidth();
+  var left_offset = percentage * $('#soundlist #'+sound_id).outerWidth();
   scrub_mark.css('left', left_offset);
 
   // text in scrub bar
@@ -144,21 +167,17 @@ UI.mark = function(sound_id, percentage) {
   span.attr('class', 'scrub-mark-text');
   scrub_mark.append(span);
 
-  $('#'+sound_id).append(scrub_mark);
+  $('#soundlist #'+sound_id).append(scrub_mark);
 }
 
-UI.span = function() {
-  return $(document.createElement('span'));
-}
 
-UI.button = function(title, class_thing) {
-  var a = $(document.createElement('a'));
-  a.attr('class', 'button '+class_thing);
-  a.attr('href', "#");
-  a.html(title);
-  return a;
-}
+/********************/
+/*** DOM ELEMENTS ***/
+/********************/
 
+/* Specific */
+
+// One sound in the track list
 UI.div_sound = function(sound) {
   var div = $(document.createElement('div'));
   div.attr('id', sound.data.id);
@@ -169,9 +188,34 @@ UI.div_sound = function(sound) {
 
   div.append(UI.button('Play', 'play left'));
   div.append(UI.button('Mark', 'mark right'));
-	div.append(UI.button('Use', 'use'));
   div.append(sound.data.name);
   return div;
+}
+
+// One sound in the mixboard view
+UI.div_mixboard_sound = function(sound) {
+  var div = $(document.createElement('div'));
+  div.attr('id', sound.data.id);
+  div.attr('class', 'mixboard-sound');
+  
+  div.append(sound.data.name);
+  
+  return div;
+}
+
+
+/* Generic */
+
+UI.span = function() {
+  return $(document.createElement('span'));
+}
+
+UI.button = function(title, button_class) {
+  var a = $(document.createElement('a'));
+  a.attr('class', 'button '+button_class);
+  a.attr('href', "#");
+  a.html(title);
+  return a;
 }
 
 UI.div_scrub_bar = function() {
@@ -215,6 +259,7 @@ UI.time_format = function(ms) {
 
 	return string;
 }
+
 
 /* random helper functions */
 

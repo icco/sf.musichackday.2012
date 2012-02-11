@@ -20,32 +20,35 @@ The Mixboard records your live mixing for future editing. The Mixboard also lets
 ## Notes for MVP
 
 * Data we want to record
-  * Volume for each song
-  * Position in track for each song
-  * Tempo for each track
-  * Position in master track
-  * Track metadata (artist, song title, bpm)
+  * [ ] Track metadata (artist, song title, bpm)
+  * [ ] Position in track for each song
+  * [ ] Position in master track
+  * [ ] Volume for each song
+  * [ ] Tempo for each track
+
 * Console
-  * List of tracks
-  * Highlight a song
-    * Show current time
-    * Show cue points
-    * Set cue points
-    * play and pause track
-    * Start and end loops
-    * Adjust volume
-    * Adjust tempo
+  * [X] List of tracks
+  * [ ] Pull list from backend
+  * [ ] Highlight a song
+    * [X] Show current time
+    * [X] Show cue points
+    * [X] Set cue points
+    * [X] play and pause track
+    * [ ] Adjust volume
+    * [ ] Start and end loops
+    * [ ] Adjust tempo
   * Unhighlited songs
-    * Current position in song
-    * history of position in song
-    * length of song
+    * [X] Current position in song
+    * [X] length of song
+    * [ ] history of position in song (horizontal lines)
+  
 * Mixboard
-  * List of tracks
+  * [ ] List of tracks
   * Each track
-    * History of position using blocks
-    * History of volume of track
-    * History of tempo of track
-* Master progress bar
+    * [ ] History of position using blocks
+    * [ ] History of volume of track
+    * [ ] History of tempo of track
+  * Master progress bar
 
 ## Resources
 

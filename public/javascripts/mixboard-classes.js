@@ -1,8 +1,6 @@
 /* bookmark class */
-function Mark(position, sound_id) {
+function Mark(position) {
   this.position = position;
-  this.sound_id = sound_id;
-  ++octopus.get(sound_id).mark_count;
 }
 
 
@@ -14,11 +12,11 @@ function Sound(song_id) {
   this.duration = 0;
   this.ready = false;
   this.mark_count = 0;
+  this.marks = [];
   this.manager = soundManager.createSound({
     id: this.data.id,
     url: this.data.url
   });
-
 
   var self = this;
   this.manager.load({
@@ -36,6 +34,9 @@ Sound.prototype.play = function() {
 Sound.prototype.pause = function() {
   this.manager.pause();
 }
+Sound.prototype.stop = function() {
+  this.manager.stop();
+}
 Sound.prototype.scrub = function(percentage) {
   this.manager.setPosition(percentage * this.manager.duration);
 }
@@ -45,44 +46,44 @@ Sound.prototype.scrub = function(percentage) {
 
 /*	Octopus
 		This controls all songs.
-		This has all songs and the mixboard.
 */
 function Octopus() {
-	// object -- use it as an array, key it with song_id.
+  // The tracks in the console.
+	// use it as an array keyed with song_id.
 	this.songs = {};
-
-	// array of something
-	// TODO: what?
- 	this.marks = [];
-
-	// array of song ids that are in the mixboard
-	this.mixboard = [];
 }
 
 /* add a sound to app */
 Octopus.prototype.add = function(sound) {
 	this.songs[sound.data.id] = sound;
+	
+	// add the fist mark by default
 }
 
 /* get a sound object from an id */
 Octopus.prototype.get = function(sound_id) {
 	return this.songs[sound_id];
 }
-/* adds a song to the mixboard */
-Octopus.prototype.use = function(sound_id) {
-	this.mixboard.push(sound);
-}
-/* deprecated in favor of .toggle */
-/* takes a sound id. if one is given, plays that sound.
-if no sound id is given, it plays all sounds. */
+
+/* Play the mixboard */
 Octopus.prototype.play = function(sound_id) {
-  // TODO: play the main mixboard
+  $.each(this.songs, function() {
+    this.stop();
+  });
+  
+  //UI.update_soundlist();
+  
+  $.each(this.songs, function() {
+    this.play();
+  });
 }
-/* deprecated in favor of .toggle */
+
+/* Pause the mixboard */
 Octopus.prototype.pause = function(sound_id) {
   // TODO: pause the main mixboard
 }
-/* plays or pauses. returns the play state (pause/play) as a boolean (0/1) */
+
+/* plays or pauses either a specific song or all songs. returns the play state (pause/play) as a boolean (0/1) */
 Octopus.prototype.toggle = function(sound_id) {
 	var play_state = 0;
 	$.each(this.songs, function() {
@@ -102,8 +103,11 @@ Octopus.prototype.toggle = function(sound_id) {
 Octopus.prototype.mark = function(sound_id) {
   var song = this.songs[sound_id];
   var position = song.manager.position;
-  this.marks.push(new Mark(position, sound_id));
-  this.marks.sort(sortMarks);
+
+  song.marks.push(new Mark(position));
+  song.marks.sort(sortMarks);
+  song.mark_count++;
+
   return position/song.manager.duration;
 }
 function sortMarks(a, b) {

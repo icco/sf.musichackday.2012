@@ -15,8 +15,19 @@ h2 {
   width: 1000px;
   border-right: 1px solid #eee;
 }
-#mainlist {
-  background-color: orange;
+#soundlist {
+  width: 100%;
+}
+#mixboard {
+  background-color: #f5d6ae;
+  width: 100%;
+  min-height: 50px;
+  
+  .mixboard-sound {
+    padding: 10px;
+    height: 30px;
+    position: relative;
+  }
 }
 
 .sound {
@@ -65,10 +76,10 @@ h2 {
 }
 
 
-#soundmanager-debug {
-  width: 40%;
-  height: 300px;
-  border: 1px solid #ccc;
+#sm2-container {
+  width: 20%;
+  height: 100px;
+  border: 0px solid #ccc;
   padding: 5px 8px 8px 8px;
 
   position: fixed;
@@ -77,7 +88,6 @@ h2 {
 
   overflow: hidden;
 }
-#sm2-container { }
 
 .float-right {	float: right; }
 .float-left {	float: left; }
