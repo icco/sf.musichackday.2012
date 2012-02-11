@@ -6,7 +6,11 @@
     
     <%= stylesheet_link_tag :mixboard %>
     <%= stylesheet_link_tag :buttons %>
-    
+  </head>
+  <body>
+    <% # This is where the template context comes in. %>
+    <%= yield %>
+
     <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "soundmanager2/script/soundmanager2" %>
     <%= javascript_include_tag "mixboard-classes" %>
@@ -32,8 +36,5 @@
       var DEBUG = true;
       main(); // defined in mixboard-app.js
     </script>
-  </head>
-  <body>
-    <%= yield %>
   </body>
 </html>

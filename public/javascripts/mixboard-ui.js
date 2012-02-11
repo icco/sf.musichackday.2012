@@ -84,6 +84,7 @@ UI.update = function() {
 	//if(DEBUG) Knowledge.time_end();
 	//if(DEBUG) Knowledge.time_print();
 }
+
 // redraw the list of sounds
 UI.update_soundList = function() {
   var max_length = max_duration(octopus.songs);
