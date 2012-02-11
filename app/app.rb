@@ -6,6 +6,12 @@ class Mixboard < Padrino::Application
 
   enable :sessions
 
+  layout :main
+  
+  get '/' do
+    render :index
+  end
+
   ##
   # Caching support
   #

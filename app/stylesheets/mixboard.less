@@ -1,0 +1,88 @@
+body {
+  background-color: #ddd;
+  font-family: sans-serif;
+  color: #777;
+}
+/* FONT */
+h1 {
+  color: #333;
+}
+h2 {
+  color: #555;
+}
+
+#canvas {
+  width: 1000px;
+  border-right: 1px solid #eee;
+}
+#mainlist {
+  background-color: orange;
+}
+
+.sound {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 200px;
+  height: 50px;
+  background-color: #b3d9ee;
+  position: relative;
+
+  /* when dragging it selects, disable for now */
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.timestamp {
+  float: right;
+}
+.scrub-bar {
+  border: 1px solid #999;
+  width: 1px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: -1px;
+  cursor: col-resize;
+}
+.scrub_timestamp {
+  position: absolute;
+  bottom: 0;
+}
+.scrub-mark {
+  width: 1px;
+  height: 100%;
+  background-color: blue;
+  position: absolute;
+  top: -1px;
+
+  font-size: 13px;
+}
+.scrub-mark-text {
+  color: blue;
+  /*    text-transform: lowercase;*/
+}
+
+
+#soundmanager-debug {
+  width: 40%;
+  height: 300px;
+  border: 1px solid #ccc;
+  padding: 5px 8px 8px 8px;
+
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+
+  overflow: hidden;
+}
+#sm2-container { }
+
+.float-right {	float: right; }
+.float-left {	float: left; }
+.alpha-5 { opacity:0.5; filter:alpha(opacity=50); }
+.alpha-5 { opacity:0.4; filter:alpha(opacity=40); }
+.alpha-5 { opacity:0.3; filter:alpha(opacity=30); }
+.alpha-2 { opacity:0.2; filter:alpha(opacity=20); }
+.alpha-5 { opacity:0.1; filter:alpha(opacity=10); }
