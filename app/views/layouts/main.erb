@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Online remix on Mixboard.fm</title>
+    <%= stylesheet_link_tag :mixboard %>
+    <%= stylesheet_link_tag :buttons %>
+    <%= javascript_include_tag "jquery" %>
+    <%= javascript_include_tag "application" %>
+    
+    <script type="text/javascript">
+      // main() defined in application.js
+      main();
+    </script>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
