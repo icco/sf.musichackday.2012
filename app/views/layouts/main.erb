@@ -3,13 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <title>Online remix on Mixboard.fm</title>
+    
     <%= stylesheet_link_tag :mixboard %>
     <%= stylesheet_link_tag :buttons %>
+    
     <%= javascript_include_tag "jquery" %>
-    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "soundmanager2/soundmanager2/script/soundmanager2" %>
+    <%= javascript_include_tag "mixboard-models" %>
+    <%= javascript_include_tag "mixboard-ui" %>
+    <%= javascript_include_tag "mixboard-app" %>
     
     <script type="text/javascript">
-      // main() defined in application.js
+      var SOUND_DATA = {
+          "s0001": [{
+              "name": "Buried",
+              "id": "s0001",
+              "url": "/tracks/01 Buried.mp3"
+          }],
+          "s0002": [{
+              "name": "Single Variation of Two",
+              "id": "s0002",
+              "url": "/sounds/01 Single Variation of Two.mp3"
+          }]
+      }
+    </script>
+    
+    <script type="text/javascript">
+      // main() defined in mixboard-app.js
       main();
     </script>
   </head>
