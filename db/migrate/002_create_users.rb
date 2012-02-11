@@ -3,6 +3,8 @@ Sequel.migration do
     create_table :users do
       primary_key :id
       String :name
+      DateTime :created
+      DateTime :modified
     end
   end
 end
