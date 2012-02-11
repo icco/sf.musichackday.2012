@@ -1,26 +1,30 @@
 source :rubygems
 
-# Server requirements (defaults to WEBrick)
-# gem 'thin'
-# gem 'mongrel'
+# Server requirements
+gem 'rack', "~> 1.4.1"
 
 # Project requirements
+gem "chronic"
+gem "json"
 gem 'rake'
 gem 'sinatra-flash', :require => 'sinatra/flash'
 
 # Component requirements
 gem 'rack-less'
 gem 'erubis', "~> 2.7.0"
-
-# Test requirements
+gem 'sequel'
 
 # Padrino Stable Gem
 gem 'padrino', '0.10.5'
 
-# Or Padrino Edge
-# gem 'padrino', :git => 'git://github.com/padrino/padrino-framework.git'
+# Database
+group :production do
+  gem "pg"
+end
 
-# Or Individual Gems
-# %w(core gen helpers cache mailer admin).each do |g|
-#   gem 'padrino-' + g, '0.10.5'
-# end
+# For dev.
+group :development, :test do
+  gem "heroku"
+  gem "shotgun"
+  gem "sqlite3"
+end
