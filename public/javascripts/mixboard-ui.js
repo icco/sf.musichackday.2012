@@ -102,6 +102,7 @@ UI.update = function() {
 }
 
 // redraw the list of sounds
+// NOTE: Called a ton, be careful what you put in here.
 UI.update_soundList = function() {
   var max_length = max_duration(octopus.songs);
   var width = $('#soundlist').width();
