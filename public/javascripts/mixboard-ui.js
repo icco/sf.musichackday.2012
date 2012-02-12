@@ -176,8 +176,6 @@ UI.update_soundList = function() {
 
     // draw the marks
     if(this.marks.length != $('#soundlist #'+this.data.id+' .scrub-mark').length) {
-      if (DEBUG) console.log(">>> number of marks: " + this.marks.length);
-      if (DEBUG) console.log(">>> song's marks: " + this.marks);
       // remove all the marks
       $('#soundlist #'+this.data.id+' .scrub-mark').each(function() {
         $(this).remove();
@@ -186,12 +184,10 @@ UI.update_soundList = function() {
       // draw all the marks
       var sound_id = this.data.id;
       var duration = this.manager.duration;
-if (DEBUG) console.log(this.marks);
+
       $.each(this.marks, function() {
-        if(this) {
-          var percentage = this.position/duration;
-          UI.mark(sound_id, percentage, this.name);
-        }
+        var percentage = this.position/duration;
+        UI.mark(sound_id, percentage, this.name);
       });
     }
   });
