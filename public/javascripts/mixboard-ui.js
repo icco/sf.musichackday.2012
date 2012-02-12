@@ -12,17 +12,17 @@ UI.bind = function() {
   $('#mixboard').append(UI.button('Pause', null).attr('id', 'octopus-pause'));
 
   // Main mixboard play
-  $('#octopus-play').click(function() {
-      octopus.play();
+  $(document).on('click', '#octopus-play', function() {
+    octopus.play();
   });
 
   // Main mixboard pause
-  $('#octopus-pause').click(function() {
-      octopus.pause();
+  $(document).on('click', '#octopus-pause', function() {
+    octopus.pause();
   });
 
   // Individual sound play / pause
-  $('.sound .button.play').live('click', function() {
+  $(document).on('click', '.sound .button.play', function() {
 		// change button text when toggling play/pause
 		playing = octopus.toggle($(this).parent().attr('id'));
 
@@ -35,16 +35,16 @@ UI.bind = function() {
 		UI.update();
   });
 
-  $('.sound .button.mark').live('click', function() {
+  $(document).on('click', '.sound .button.mark', function(click_event) {
     var percentage = octopus.mark($(this).parent().attr('id'));
     UI.mark($(this).parent().attr('id'), percentage);
   });
 
   // bind number keys to markers
-  $('html').keyup(function(key_event) {
+  $(document).on('keypress', function(key_event) {
     var ANSI_OFFSET = 48;
     var key = key_event.keyCode - ANSI_OFFSET;
-    
+
     if (key >= 1 && key <= 9) {
       octopus.cue(UI.selected_song_id, key);
     }
@@ -102,6 +102,7 @@ UI.update = function() {
 }
 
 // redraw the list of sounds
+// NOTE: Called a ton, be careful what you put in here.
 UI.update_soundList = function() {
   var max_length = max_duration(octopus.songs);
   var width = $('#soundlist').width();
@@ -117,7 +118,7 @@ UI.update_soundList = function() {
     if (!$('#soundlist:has(#'+this.data.id+')').length) {
       div = UI.div_sound(this);
       $('#soundlist').append(div);
-      
+
       // Default to selecting the first song
       // Probably end up removing this later
       if (UI.selected_song_id == null) {
@@ -295,7 +296,7 @@ UI.mark_selected = function(div) {
   });
 
   div.addClass('selected');
-  
+
   UI.selected_song_id = div.attr('id');
 }
 
