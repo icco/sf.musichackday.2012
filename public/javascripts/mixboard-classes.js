@@ -46,7 +46,9 @@ Sound.prototype.stop = function() {
 }
 
 Sound.prototype.scrub = function(percentage) {
-  this.manager.setPosition(percentage * this.manager.duration);
+  var newPos = percentage * this.manager.duration;
+  this.manager.setPosition(newPos);
+  history.add(this.data.id, { "position": newPos });
 }
 
 // Cues the song at the position given by the mark named mark_name
@@ -55,6 +57,7 @@ Sound.prototype.cue = function(mark_name) {
   var mark = this.marks[mark_name];
   if (mark && mark.position) {
     this.manager.setPosition(mark.position);
+    history.add(this.data.id, { "position": mark.position });
   } else {
     this.mark(mark_name);
     if (DEBUG) console.log(mark_name + " is now defined.");
@@ -152,6 +155,7 @@ Octopus.prototype.toggle = function(sound_id) {
 			play_state = !this.manager.paused;
     }
   });
+
 	return play_state;
 }
 
@@ -178,4 +182,34 @@ function sortMarks(a, b) {
 Octopus.prototype.cue = function(song_id, mark_name) {
   if (DEBUG) console.log(">>> octopus.cue");
   this.songs[song_id].cue(mark_name);
+}
+
+/**
+ * History.
+ */
+function History() {
+  this.data = {};
+  this.time = 0; // TODO: Set a global timeline.
+
+  // Eventually this should be something like user/project.
+  this.id = "mixboard";
+
+  this.init = function() {
+    if (DEBUG) console.log("History initialized.");
+  };
+
+  this.add = function(song_id, state) {
+    var newState = { };
+    newState[song_id] = state;
+
+    console.log(this.data);
+    console.log(newState);
+    this.data[this.time] = $.extend(this.data[this.time], newState);
+
+    this.save();
+  }
+
+  this.save = function() {
+    localStorage[this.id] = JSON.stringify(this.data);
+  }
 }

@@ -2,9 +2,11 @@
   <h1>mxb.fm</h1>
   <h2>track list</h2>
   <div id="soundlist"></div>
+  <div id="master-scrub"></div>
+
   <h2>mixboard</h2>
-  <!-- <a id="octopus-play" class="button">Play</a>
-  <a id="octopus-pause" class="button">Pause</a> -->
+  <a id="octopus-play" class="button">Play</a>
+  <a id="octopus-pause" class="button">Pause</a>
   <div id="mixboard"></div>
 </div> <!-- end #canvas -->
 
@@ -24,6 +26,6 @@
 </script>
 
 <script type="text/javascript">
-  var DEBUG = true;
+  var DEBUG = <%= (PADRINO_ENV == "development") %>;
   main(); // defined in mixboard-app.js
 </script>
