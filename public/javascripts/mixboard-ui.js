@@ -274,6 +274,8 @@ UI.mark_selected = function(div) {
   });
 
   div.addClass('selected');
+  
+  UI.selected_song_id = div.attr('id');
 }
 
 /* takes milliseconds, returns a nice pretty string */
