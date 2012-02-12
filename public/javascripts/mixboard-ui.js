@@ -35,6 +35,11 @@ UI.bind = function() {
 		UI.update();
   });
 
+  $(document).on('click', '#octopus-record', function(click_event) {
+    // Put code to move scrubber here.
+
+  });
+
   $(document).on('click', '.sound .button.mark', function(click_event) {
     octopus.mark($(this).parent().attr('id'));
   });
