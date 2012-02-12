@@ -45,7 +45,7 @@ UI.bind = function() {
     var ANSI_OFFSET = 48;
     var key = key_event.keyCode - ANSI_OFFSET;
     
-    if(key >= 1 && key <= 9) {
+    if (key >= 1 && key <= 9) {
       octopus.cue(UI.selected_song_id, key);
     }
   });
@@ -67,7 +67,7 @@ UI.bind = function() {
     });
 
     $('body').mousemove(function(mouse) {
-      if(scrub_bar_drag) {
+      if (scrub_bar_drag) {
         var deltaX = mouse.pageX - scrub_bar_startX;
         var deltaY = mouse.pageY - scrub_bar_startY;
 
@@ -92,13 +92,13 @@ UI.mainLoop = function() {
 
 // update teh whole UI
 UI.update = function() {
-	//if(DEBUG) Knowledge.time_start();
+	//if (DEBUG) Knowledge.time_start();
 
   UI.update_soundList();
   UI.update_mixboard();
 
-	//if(DEBUG) Knowledge.time_end();
-	//if(DEBUG) Knowledge.time_print();
+	//if (DEBUG) Knowledge.time_end();
+	//if (DEBUG) Knowledge.time_print();
 }
 
 // redraw the list of sounds
@@ -115,13 +115,13 @@ UI.update_soundList = function() {
     var div;
 
     // add the div to the page, if it isn't already there
-    if(!$('#soundlist:has(#'+this.data.id+')').length) {
+    if (!$('#soundlist:has(#'+this.data.id+')').length) {
       div = UI.div_sound(this);
       $('#soundlist').append(div);
       
       // Default to selecting the first song
       // Probably end up removing this later
-      if(UI.selected_song_id == null) {
+      if (UI.selected_song_id == null) {
         UI.selected_song_id = this.data.id;
       }
     } else {
@@ -139,7 +139,7 @@ UI.update_soundList = function() {
 
     // moving position bar
     var scrub_bar;
-    if(!div.has('.scrub-bar').length) {
+    if (!div.has('.scrub-bar').length) {
       scrub_bar = UI.div_scrub_bar();
 		  timestamp = UI.DIV_GENERIC('scrub_timestamp');
 
@@ -149,7 +149,7 @@ UI.update_soundList = function() {
       scrub_bar = div.find('.scrub-bar');
     }
 
-    if(this.manager.position) {
+    if (this.manager.position) {
       var left_offset = div.outerWidth() * this.manager.position/this.duration;
       scrub_bar.css('left', left_offset);
       scrub_bar.find('.scrub_timestamp').html(UI.time_format(this.manager.position));
@@ -166,7 +166,7 @@ UI.update_mixboard = function() {
     var div;
 
     // add the div to the page, if it isn't already there
-    if(!$('#mixboard:has(#'+this.data.id+')').length) {
+    if (!$('#mixboard:has(#'+this.data.id+')').length) {
       div = UI.div_mixboard_sound(this);
       $('#mixboard').append(div);
     } else {
@@ -289,11 +289,11 @@ UI.time_format = function(ms) {
 	x /= 60;
 	var hours = Math.round(x % 24);
 
-	if(seconds < 10) seconds = "0" + seconds;
-	if(minutes < 10) minutes = "0" + minutes;
+	if (seconds < 10) seconds = "0" + seconds;
+	if (minutes < 10) minutes = "0" + minutes;
 
  	string = minutes + ":" + seconds;// + ":" + deca;
-	if(hours > 0) string = hours + ":" + string;
+	if (hours > 0) string = hours + ":" + string;
 
 	return string;
 }
@@ -305,7 +305,7 @@ function max_duration(arr) {
   var max = 0;
 
   $.each(arr, function() {
-    if(this.duration > max) {
+    if (this.duration > max) {
       max = this.duration;
     }
   });

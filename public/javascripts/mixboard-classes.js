@@ -117,8 +117,8 @@ Octopus.prototype.pause = function(sound_id) {
 Octopus.prototype.toggle = function(sound_id) {
 	var play_state = 0;
 	$.each(this.songs, function() {
-    if(!sound_id || this.data.id==sound_id) {
-      if(!this.manager.playState || this.manager.paused) {
+    if (!sound_id || this.data.id==sound_id) {
+      if (!this.manager.playState || this.manager.paused) {
 		    this.play();
 			} else {
 				this.pause();
@@ -138,9 +138,9 @@ Octopus.prototype.mark = function(sound_id) {
 }
 
 function sortMarks(a, b) {
-  if(a.position < b.position) {
+  if (a.position < b.position) {
     return -1;
-  } else if(a.position > b.position) {
+  } else if (a.position > b.position) {
     return 1;
   } else {
     return 0;
