@@ -110,8 +110,7 @@ UI.update_soundList = function() {
   UI.mark_selected($('.sound:hover'));
 
   $.each(octopus.songs, function(i) {
-    // in here, THIS refers to the Song object.
-
+    // in here, 'this' refers to the Song object.
     var div;
 
     // add the div to the page, if it isn't already there
@@ -137,7 +136,7 @@ UI.update_soundList = function() {
     new_width -= 2 * parseInt(div.css('padding-left'));
     div.css('width', new_width);
 
-    // moving position bar
+    // create the moving position bar
     var scrub_bar;
     if (!div.has('.scrub-bar').length) {
       scrub_bar = UI.div_scrub_bar();
@@ -148,11 +147,28 @@ UI.update_soundList = function() {
     } else {
       scrub_bar = div.find('.scrub-bar');
     }
-
+    
+    // place the moving position bar
     if (this.manager.position) {
       var left_offset = div.outerWidth() * this.manager.position/this.duration;
       scrub_bar.css('left', left_offset);
       scrub_bar.find('.scrub_timestamp').html(UI.time_format(this.manager.position));
+    }
+    
+    // draw the marks
+    if(this.marks.length != $('#soundlist #'+this.data.id+' .scrub-mark').length) {
+      // remove all the marks
+      $('#soundlist #'+this.data.id+' .scrub-mark').each(function() {
+        $(this).remove();
+      });
+
+      // draw all the marks
+      var sound_id = this.data.id;
+      var duration = this.manager.duration;
+      $.each(this.marks, function() {
+        var percentage = this.position/duration;
+        UI.mark(sound_id, percentage, this.name);
+      });
     }
   });
 }
@@ -182,7 +198,7 @@ UI.update_mixboard = function() {
   });
 }
 
-UI.mark = function(sound_id, percentage) {
+UI.mark = function(sound_id, percentage, name) {
   // add the position bar
   var scrub_mark = UI.div_scrub_mark();
   var left_offset = percentage * $('#soundlist #'+sound_id).outerWidth();
@@ -190,7 +206,12 @@ UI.mark = function(sound_id, percentage) {
 
   // text in scrub bar
   var span = UI.span();
-  span.html(octopus.get(sound_id).marks.last().name);
+  if(name == null) {
+    span.html(octopus.get(sound_id).marks.last().name);
+  } else {
+    span.html(name);
+  }
+  
   span.attr('class', 'scrub-mark-text');
   scrub_mark.append(span);
 
