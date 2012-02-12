@@ -49,27 +49,53 @@ Sound.prototype.scrub = function(percentage) {
   this.manager.setPosition(percentage * this.manager.duration);
 }
 
-// Cues the song at the position in the given mark #
-Sound.prototype.cue = function(mark_num) {
-  var mark = this.marks[mark_num];
+// Cues the song at the position given by the mark named mark_name
+Sound.prototype.cue = function(mark_name) {
+  if (DEBUG) console.log(">>> sound.cue");
+  var mark = this.marks[mark_name];
   if (mark && mark.position) {
     this.manager.setPosition(mark.position);
   } else {
-    this.mark(mark_num);
-    if (DEBUG) console.log(mark_num + " is now defined.");
+    this.mark(mark_name);
+    if (DEBUG) console.log(mark_name + " is now defined.");
   }
 }
 
 // Adds a mark at song's current position
 // Returns the marked position in miliseconds
-Sound.prototype.mark = function(mark_num) {
+Sound.prototype.mark = function(mark_name) {
+  if (DEBUG) console.log(">>> sound.mark");
+  if (DEBUG) console.log(">>> number of marks A: " + this.marks.length);
+  
   var position_ms = this.manager.position;
-  if (mark_num) {
-    this.marks[mark_num] = new Mark(position_ms, mark_num);
+  
+  if (mark_name) {
+    if (DEBUG) console.log(">>> name given");
+    
+    this.marks[mark_name] = new Mark(position_ms, mark_name);
   } else {
-    this.marks.push(new Mark(position_ms, ++this.mark_count));
-  }
+    if (DEBUG) console.log(">>> no name given");
+    
+    for(next_name = 1; this.marks[next_name] != null; next_name++) {
+      if (DEBUG) console.log(">>> " + next_name + " already used");
+    }
+    
+    if (DEBUG) console.log(">>> " + next_name + " is now defined.");
 
+    if (DEBUG) console.log(">>> number of marks B: " + this.marks.length);
+    this.marks[next_name] = new Mark(position_ms, next_name);
+    if (DEBUG) console.log(">>> number of marks C: " + this.marks.length);
+    /*
+    var next_name = 1;
+    do {
+      var used_name = this.marks[next_name++];
+    }
+    while (used_name != null);
+    this.marks[--next_name] = new Mark(position_ms, next_name);
+    */
+  }
+  if (DEBUG) console.log(">>> number of marks D: " + this.marks.length);
+  if (DEBUG) console.log("---");
   //this.marks.sort(sortMarks);
   return position_ms;
 }
@@ -132,9 +158,9 @@ Octopus.prototype.toggle = function(sound_id) {
 // Adds mark/cue to the Song.
 // Returns the percentage played at this mark.
 Octopus.prototype.mark = function(sound_id) {
+  if (DEBUG) console.log(">>> octopus.mark");
   var song = this.songs[sound_id];
-  var position_ms = song.mark();
-  return position_ms/song.manager.duration;
+  song.mark();
 }
 
 function sortMarks(a, b) {
@@ -147,9 +173,9 @@ function sortMarks(a, b) {
   }
 }
 
-// Jumps the song specified by song_id to the mark number
-Octopus.prototype.cue = function(song_id, key) {
-  // convert key to mark number
-  var mark_num = key-1;
-  this.songs[song_id].cue(mark_num);
+// Jumps the song specified by song_id to the mark name
+// If that mark name doesn't exist, it's created
+Octopus.prototype.cue = function(song_id, mark_name) {
+  if (DEBUG) console.log(">>> octopus.cue");
+  this.songs[song_id].cue(mark_name);
 }
