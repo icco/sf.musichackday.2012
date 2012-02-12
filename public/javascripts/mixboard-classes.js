@@ -70,7 +70,7 @@ function Octopus() {
 	// use it as an array keyed with song_id.
 	this.songs = {};
 	
-	// this is the song_id of the selected / highlighted song.
+	// this is the sound_id of the selected / highlighted song.
 	this.selected = null;
 }
 

@@ -6,34 +6,15 @@
     
     <%= stylesheet_link_tag :mixboard %>
     <%= stylesheet_link_tag :buttons %>
-    
+
     <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "soundmanager2/script/soundmanager2" %>
     <%= javascript_include_tag "mixboard-classes" %>
     <%= javascript_include_tag "mixboard-ui" %>
     <%= javascript_include_tag "mixboard-app" %>
-    
-    <script type="text/javascript">
-      var SOUND_DATA = {
-          "s0001": [{
-              "id":   "s0001",
-              "name": "Buried",
-              "url":  "/tracks/buried.mp3"
-          }],
-          "s0002": [{
-              "id":   "s0002",
-              "name": "Little White Doves (All Hazards Remix)",
-              "url":  "/tracks/little_doves.mp3"
-          }]
-      }
-    </script>
-    
-    <script type="text/javascript">
-      var DEBUG = true;
-      main(); // defined in mixboard-app.js
-    </script>
   </head>
   <body>
+    <% # This is where the template context comes in. %>
     <%= yield %>
   </body>
 </html>
