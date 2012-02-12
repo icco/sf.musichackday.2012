@@ -16,7 +16,7 @@ function Sound(song_id) {
   this.duration = 0;
   this.ready = false;
   this.mark_count = 0;
-  this.marks = [];
+  this.marks = {};
   this.manager = soundManager.createSound({
     id: this.data.id,
     url: this.data.url
