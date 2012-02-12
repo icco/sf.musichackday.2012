@@ -54,14 +54,22 @@ Sound.prototype.cue = function(mark_num) {
   var mark = this.marks[mark_num];
   if (mark && mark.position) {
     this.manager.setPosition(mark.position);
+  } else {
+    this.mark(mark_num);
+    if (DEBUG) console.log(mark_num + " is now defined.");
   }
 }
 
 // Adds a mark at song's current position
 // Returns the marked position in miliseconds
-Sound.prototype.mark = function() {
+Sound.prototype.mark = function(mark_num) {
   var position_ms = this.manager.position;
-  this.marks.push(new Mark(position_ms, ++this.mark_count));
+  if (mark_num) {
+    this.marks[mark_num] = new Mark(position_ms, mark_num);
+  } else {
+    this.marks.push(new Mark(position_ms, ++this.mark_count));
+  }
+
   //this.marks.sort(sortMarks);
   return position_ms;
 }
