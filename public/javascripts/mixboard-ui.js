@@ -157,7 +157,7 @@ UI.update_soundList = function() {
     }
     
     // draw the marks
-    if(this.marks.length != $('#soundlist #'+this.data.id+' .scrub-mark').length) {
+    if (this.marks.length != $('#soundlist #'+this.data.id+' .scrub-mark').length) {
       // remove all the marks
       $('#soundlist #'+this.data.id+' .scrub-mark').each(function() {
         $(this).remove();
@@ -207,7 +207,7 @@ UI.mark = function(sound_id, percentage, name) {
 
   // text in scrub bar
   var span = UI.span();
-  if(name == null) {
+  if (name == null) {
     span.html(octopus.get(sound_id).marks.last().name);
   } else {
     span.html(name);
