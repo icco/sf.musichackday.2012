@@ -7,10 +7,10 @@ function Mark(position, name) {
   this.name = name;
 }
 
-
-/*  Sound
-    This is an object that plays sound.
-*/
+/*
+ *  Sound
+ *  This is an object that plays sound.
+ */
 function Sound(song_id) {
   this.data = SOUND_DATA[song_id][0]; // defined this on main.html (pull from db?)
   this.duration = 0;
@@ -32,15 +32,19 @@ function Sound(song_id) {
     }
   });
 }
+
 Sound.prototype.play = function() {
   this.manager.play();
 }
+
 Sound.prototype.pause = function() {
   this.manager.pause();
 }
+
 Sound.prototype.stop = function() {
   this.manager.stop();
 }
+
 Sound.prototype.scrub = function(percentage) {
   this.manager.setPosition(percentage * this.manager.duration);
 }
@@ -60,16 +64,15 @@ Sound.prototype.mark = function() {
   return position_ms;
 }
 
-
-
-/*	Octopus
-		This controls all songs.
-*/
+/*
+ *	Octopus
+ *	This controls all songs.
+ */
 function Octopus() {
   // The tracks in the console.
 	// use it as an array keyed with song_id.
 	this.songs = {};
-	
+
 	// this is the sound_id of the selected / highlighted song.
 	this.selected = null;
 }
@@ -77,7 +80,7 @@ function Octopus() {
 /* add a sound to app */
 Octopus.prototype.add = function(sound) {
 	this.songs[sound.data.id] = sound;
-	
+
 	// add the fist mark by default?
 }
 
@@ -123,6 +126,7 @@ Octopus.prototype.mark = function(sound_id) {
   var position_ms = song.mark();
   return position_ms/song.manager.duration;
 }
+
 function sortMarks(a, b) {
   if(a.position < b.position) {
     return -1;
