@@ -110,6 +110,25 @@ UI.update_soundList = function() {
   // Select hovered song.
   UI.mark_selected($('.sound:hover'));
 
+  {
+    var div = $('#master-scrub');
+    if (!div.has('.scrub-bar').length) {
+      scrub_bar = UI.div_scrub_bar();
+		  timestamp = UI.DIV_GENERIC('scrub_timestamp');
+
+		  scrub_bar.append(timestamp);
+      div.append(scrub_bar);
+    } else {
+      scrub_bar = div.find('.scrub-bar');
+    }
+
+    // place the moving position bar
+    // TODO: Figure out how to find global time.
+    var position = 10;
+    var left_offset = div.outerWidth() * position/max_length;
+    scrub_bar.css('left', left_offset);
+  }
+
   $.each(octopus.songs, function(i) {
     // in here, 'this' refers to the Song object.
     var div;
@@ -148,14 +167,14 @@ UI.update_soundList = function() {
     } else {
       scrub_bar = div.find('.scrub-bar');
     }
-    
+
     // place the moving position bar
     if (this.manager.position) {
       var left_offset = div.outerWidth() * this.manager.position/this.duration;
       scrub_bar.css('left', left_offset);
       scrub_bar.find('.scrub_timestamp').html(UI.time_format(this.manager.position));
     }
-    
+
     // draw the marks
     if (this.marks.length != $('#soundlist #'+this.data.id+' .scrub-mark').length) {
       // remove all the marks
@@ -212,7 +231,7 @@ UI.mark = function(sound_id, percentage, name) {
   } else {
     span.html(name);
   }
-  
+
   span.attr('class', 'scrub-mark-text');
   scrub_mark.append(span);
 
