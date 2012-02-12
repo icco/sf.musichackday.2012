@@ -52,7 +52,9 @@ Sound.prototype.scrub = function(percentage) {
 // Cues the song at the position in the given mark #
 Sound.prototype.cue = function(mark_num) {
   var mark = this.marks[mark_num];
-  this.manager.setPosition(mark.position);
+  if (mark && mark.position) {
+    this.manager.setPosition(mark.position);
+  }
 }
 
 // Adds a mark at song's current position
