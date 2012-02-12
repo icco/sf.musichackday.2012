@@ -24,6 +24,6 @@
 </script>
 
 <script type="text/javascript">
-  var DEBUG = true;
+  var DEBUG = <%= (PADRINO_ENV == "development") %>;
   main(); // defined in mixboard-app.js
 </script>
