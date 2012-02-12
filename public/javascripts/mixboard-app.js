@@ -7,6 +7,7 @@
 
 var soundManager;
 var octopus = new Octopus();
+var history = new History();
 
 // This gets called to start everything up
 function main() {
