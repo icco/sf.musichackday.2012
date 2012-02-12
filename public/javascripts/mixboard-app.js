@@ -51,6 +51,7 @@ function soundLoop() {
 function error(string) {
     alert("ERROR: " + string + " Handle errors better.");
 }
+
 function welcome() {
     return '\n \
                   .---.         ,, \n \

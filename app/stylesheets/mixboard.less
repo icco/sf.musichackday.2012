@@ -3,6 +3,7 @@ body {
   font-family: sans-serif;
   color: #777;
 }
+
 /* FONT */
 h1 {
   color: #333;
@@ -17,14 +18,18 @@ h2 {
 }
 #soundlist {
   width: 100%;
+
+  .selected {
+    border-color: #333;
+  }
 }
 #mixboard {
   display: none;
-  
+
   background-color: #f5d6ae;
   width: 100%;
   min-height: 50px;
-  
+
   .mixboard-sound {
     padding: 10px;
     height: 30px;
@@ -38,6 +43,7 @@ h2 {
   width: 200px;
   height: 50px;
   background-color: #b3d9ee;
+  border: 4px #b3d9ee dashed;
   position: relative;
 
   /* when dragging it selects, disable for now */

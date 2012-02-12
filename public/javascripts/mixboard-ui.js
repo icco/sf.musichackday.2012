@@ -22,11 +22,11 @@ UI.bind = function() {
 		// change button text when toggling play/pause
 		playing = octopus.toggle($(this).parent().attr('id'));
 
-		if(playing) {
-				$(this).html('Pause');
-		} else {
-				$(this).html('Play');
-		}
+    if (playing) {
+      $(this).html('Pause');
+    } else {
+      $(this).html('Play');
+    }
 
 		UI.update();
   });
@@ -69,11 +69,13 @@ UI.bind = function() {
     });
   }
 }
+
 // updates the site UI every 1/4 second
 UI.mainLoop = function() {
   UI.update();
   setTimeout('UI.mainLoop()', 50);
 }
+
 // update teh whole UI
 UI.update = function() {
 	//if(DEBUG) Knowledge.time_start();
@@ -90,7 +92,10 @@ UI.update_soundList = function() {
   var max_length = max_duration(octopus.songs);
   var width = $('#soundlist').width();
 
-  $.each(octopus.songs, function() {
+  // Select hovered song.
+  UI.mark_selected($('.sound:hover'));
+
+  $.each(octopus.songs, function(i) {
     // in here, THIS refers to the Song object.
 
     var div;
@@ -238,8 +243,16 @@ UI.DIV_GENERIC = function(div_class) {
   return div;
 }
 
-UI.mark_id_to_letter = function(int) {
-  return String.fromCharCode(64+int);
+UI.mark_id_to_letter = function(integer) {
+  return String.fromCharCode(64+integer);
+}
+
+UI.mark_selected = function(div) {
+  $('#soundlist').children().each(function() {
+    $(this).removeClass('selected');
+  });
+
+  div.addClass('selected');
 }
 
 /* takes milliseconds, returns a nice pretty string */
