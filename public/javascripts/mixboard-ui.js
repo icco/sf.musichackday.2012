@@ -3,7 +3,7 @@ var UI = {};
 
 /* Instance vars */
 // song_id of the song currently selected / highlighted on the UI
-UI.selected = null;
+UI.selected_song_id = null;
 
 // Assembles the UI, binds events
 UI.bind = function() {
@@ -46,7 +46,7 @@ UI.bind = function() {
     var key = key_event.keyCode - ANSI_OFFSET;
     
     if(key >= 1 && key <= 9) {
-      octopus.cue(UI.selected, key);
+      octopus.cue(UI.selected_song_id, key);
     }
   });
 
@@ -112,6 +112,12 @@ UI.update_soundList = function() {
     if(!$('#soundlist:has(#'+this.data.id+')').length) {
       div = UI.div_sound(this);
       $('#soundlist').append(div);
+      
+      // Default to selecting the first song
+      // Probably end up removing this later
+      if(UI.selected_song_id == null) {
+        UI.selected_song_id = this.data.id;
+      }
     } else {
       div = $('#soundlist #'+this.data.id);
     }

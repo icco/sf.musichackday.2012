@@ -44,9 +44,20 @@ Sound.prototype.stop = function() {
 Sound.prototype.scrub = function(percentage) {
   this.manager.setPosition(percentage * this.manager.duration);
 }
-Sound.prototype.mark = function(position) {
-  this.marks.push(new Mark(position, ++this.mark_count));
+
+// Cues the song at the position in the given mark #
+Sound.prototype.cue = function(mark_num) {
+  var mark = this.marks[mark_num];
+  this.manager.setPosition(mark.position);
+}
+
+// Adds a mark at song's current position
+// Returns the marked position in miliseconds
+Sound.prototype.mark = function() {
+  var position_ms = this.manager.position;
+  this.marks.push(new Mark(position_ms, ++this.mark_count));
   //this.marks.sort(sortMarks);
+  return position_ms;
 }
 
 
@@ -105,14 +116,12 @@ Octopus.prototype.toggle = function(sound_id) {
 	return play_state;
 }
 
-// adds mark/cue to the Song. returns the percentage played at this mark
+// Adds mark/cue to the Song.
+// Returns the percentage played at this mark.
 Octopus.prototype.mark = function(sound_id) {
   var song = this.songs[sound_id];
-  var position = song.manager.position;
-
-  song.mark(position);
-
-  return position/song.manager.duration;
+  var position_ms = song.mark();
+  return position_ms/song.manager.duration;
 }
 function sortMarks(a, b) {
   if(a.position < b.position) {
@@ -125,6 +134,8 @@ function sortMarks(a, b) {
 }
 
 // Jumps the song specified by song_id to the mark number
-Octopus.prototype.cue = function(song_id, mark_num) {
-  
+Octopus.prototype.cue = function(song_id, key) {
+  // convert key to mark number
+  var mark_num = key-1;
+  this.songs[song_id].cue(mark_num);
 }
