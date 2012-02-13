@@ -17,7 +17,7 @@ function Sound(song_id) {
   this.ready = false;
   this.mark_count = 0;
   this.marks = {};
-  
+
   this.manager = soundManager.createSound({
     id: this.data.id,
     url: this.data.url
@@ -144,13 +144,13 @@ function Octopus() {
     var song = this.songs[sound_id];
     song.mark();
   }
-  
+
   // Jumps the song specified by song_id to the mark name
   // If that mark name doesn't exist, it's created
   this.cue = function(song_id, mark_name) {
     this.songs[song_id].cue(mark_name);
   }
-  
+
 }
 
 function sortMarks(a, b) {
@@ -168,7 +168,8 @@ function sortMarks(a, b) {
  */
 function History() {
   this.data = {};
-  this.time = 0; // TODO: Set a global timeline.
+  this.time = 0;
+  this.length = 600000; // ten minutes in miliseconds
 
   // Eventually this should be something like user/project.
   this.id = "mixboard";
@@ -181,8 +182,7 @@ function History() {
     var newState = { };
     newState[song_id] = state;
 
-    console.log(this.data);
-    console.log(newState);
+    if (DEBUG) console.log(this.data);
     this.data[this.time] = $.extend(this.data[this.time], newState);
 
     this.save();
