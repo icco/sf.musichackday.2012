@@ -196,7 +196,7 @@ function History() {
     $.ajax({
       type: 'POST',
       url: '/api/project/nat/reed/history.json',
-      data: this.data
+      data: { data: this.data }
     });
   }
 }
