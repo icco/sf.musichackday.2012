@@ -53,7 +53,6 @@ function Sound(song_id) {
 
   // Cues the song at the position given by the mark named mark_name
   this.cue = function(mark_name) {
-    if (DEBUG) console.log(">>> sound.cue");
     var mark = this.marks[mark_name];
     if (mark && mark.position) {
       this.manager.setPosition(mark.position);

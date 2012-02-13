@@ -8,8 +8,8 @@ UI.selected_song_id = null;
 // Assembles the UI, binds events
 UI.bind = function() {
   // Main mixboard play/pause buttons
-  $('#mixboard').append(UI.button('Play', null).attr('id', 'octopus-play'));
-  $('#mixboard').append(UI.button('Pause', null).attr('id', 'octopus-pause'));
+  //$('#mixboard').append(UI.button('Play', null).attr('id', 'octopus-play'));
+  //$('#mixboard').append(UI.button('Pause', null).attr('id', 'octopus-pause'));
 
   // Main mixboard play
   $(document).on('click', '#octopus-play', function() {
@@ -114,25 +114,6 @@ UI.update_soundList = function() {
   // Select hovered song.
   UI.mark_selected($('.sound:hover'));
 
-  {
-    var div = $('#master-scrub');
-    if (!div.has('.scrub-bar').length) {
-      scrub_bar = UI.div_scrub_bar();
-		  timestamp = UI.DIV_GENERIC('scrub_timestamp');
-
-		  scrub_bar.append(timestamp);
-      div.append(scrub_bar);
-    } else {
-      scrub_bar = div.find('.scrub-bar');
-    }
-
-    // place the moving position bar
-    // TODO: Figure out how to find global time.
-    var position = 10;
-    var left_offset = div.outerWidth() * position/max_length;
-    scrub_bar.css('left', left_offset);
-  }
-
   $.each(octopus.songs, function(i) {
     // in here, 'this' refers to the Song object.
     var div;
@@ -201,6 +182,25 @@ UI.update_soundList = function() {
 UI.update_mixboard = function() {
   var max_length = max_duration(octopus.songs);
   var width = $('#mixboard').width();
+  var mixboard_div = $('#mixboard');
+  var scrub_bar;
+  
+  if (!mixboard_div.has('.scrub-bar').length) {
+    console.log("no scrubbar, adding");
+    scrub_bar = UI.div_scrub_bar();
+	  timestamp = UI.DIV_GENERIC('scrub_timestamp');
+
+	  scrub_bar.append(timestamp);
+    mixboard_div.append(scrub_bar);
+  } else {
+    scrub_bar = mixboard_div.find('.scrub-bar');
+  }
+
+  // place the moving position bar
+  // TODO: Figure out how to find global time.
+  var position = 100;
+  var left_offset = mixboard_div.outerWidth() * position/max_length;
+  scrub_bar.css('left', left_offset);
 
   $.each(octopus.songs, function() {
     // in here, THIS refers to the Song object.
@@ -305,7 +305,9 @@ UI.div_scrub_mark = function() {
 
 UI.DIV_GENERIC = function(div_class) {
   var div = $(document.createElement('div'));
-  div.attr('class', div_class);
+  if(div_class) {
+    div.attr('class', div_class);
+  }
   return div;
 }
 
