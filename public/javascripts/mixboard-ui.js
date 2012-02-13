@@ -192,7 +192,6 @@ UI.update_mixboard = function() {
   var scrub_bar;
   
   if (!mixboard_div.has('.scrub-bar').length) {
-    console.log("no scrubbar, adding");
     scrub_bar = UI.div_scrub_bar();
 	  timestamp = UI.DIV_GENERIC('scrub_timestamp');
 
@@ -204,10 +203,12 @@ UI.update_mixboard = function() {
 
   // place the moving position bar
   // TODO: Figure out how to find global time.
+  /*
   var position = 100;
   var left_offset = mixboard_div.outerWidth() * position/max_length;
   scrub_bar.css('left', left_offset);
-
+  */
+  
   $.each(octopus.songs, function() {
     // in here, THIS refers to the Song object.
     var div;
