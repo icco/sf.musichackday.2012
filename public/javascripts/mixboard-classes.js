@@ -35,10 +35,12 @@ function Sound(song_id) {
 
   this.play = function() {
     this.manager.play();
+    history.add(this.data.id, { "status": "playing" });
   }
 
   this.pause = function() {
     this.manager.pause();
+    history.add(this.data.id, { "status": "paused" });
   }
 
   this.stop = function() {
