@@ -182,7 +182,7 @@ function History() {
     var newState = { };
     newState[song_id] = state;
 
-    if (DEBUG) console.log(this.data);
+    //if (DEBUG) console.log(this.data);
     this.data[this.time] = $.extend(this.data[this.time], newState);
 
     this.save();

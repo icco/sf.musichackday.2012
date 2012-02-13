@@ -187,8 +187,8 @@ UI.update_soundList = function() {
 
 UI.update_mixboard = function() {
   var max_length = max_duration(octopus.songs);
-  var width = $('#mixboard').width();
   var mixboard_div = $('#mixboard');
+  var mixboard_width = mixboard_div.outerWidth();
   var scrub_bar;
   
   if (!mixboard_div.has('.scrub-bar').length) {
@@ -220,13 +220,54 @@ UI.update_mixboard = function() {
     } else {
       div = $('#mixboard #'+this.data.id);
     }
-
 /*
     // div's width is calculated via song length
     var new_width = width * (this.duration/max_length);
     new_width -= 2 * parseInt(div.css('padding-left'));
     div.css('width', new_width);
 */
+  });
+  
+  // Draw the state blocks yayayayay
+  var duration = history.length;
+  $.each(history.data, function(time, song_data) {
+    //span = UI.span();
+    //span.attr('class', 'bg-blue sound-block');
+    /*
+    if (this.manager.position) {
+      var left_offset = div.outerWidth() * this.manager.position/this.duration;
+      scrub_bar.css('left', left_offset);
+      scrub_bar.find('.scrub_timestamp').html(UI.time_format(this.manager.position));
+    }
+    */
+    $.each(song_data, function(song_id, changes){
+      if (changes['status'] == 'playing') {
+        if (!$('#mixboard #'+song_id+' #'+time).length) {
+          var div = UI.div_block(time);
+          var width = ((duration - time) / duration) * mixboard_width;
+          div.attr('class', 'bg-blue');
+          div.css('width', width);
+          div.data('start_ms', time);
+          $('#mixboard #'+song_id).append(div);
+        }
+      }
+      
+      if (changes['status'] == 'paused') {
+        console.log('paused');
+        var div = $('#mixboard #'+song_id+' div:last');
+        console.log(div);
+        var start_time = div.data('start_ms');
+        console.log('start time ' + start_time);
+        console.log('time ' + time);
+        var width = ((time - start_time) / duration) * mixboard_width;
+        console.log('width ' + width);
+        div.css('width', width);
+      }
+      
+    });
+    //var left_offset = mixboard_width * time/duration;
+    //console.log(time);
+    //console.log(song_data);
   });
 }
 
@@ -280,6 +321,14 @@ UI.div_mixboard_sound = function(sound) {
 
   div.append(sound.data.name);
 
+  return div;
+}
+
+UI.div_block = function(time) {
+  var div = $(document.createElement('div'));
+  div.attr('id', time);
+  div.attr('class', 'sound-block');
+  
   return div;
 }
 
