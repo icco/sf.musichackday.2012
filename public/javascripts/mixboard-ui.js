@@ -36,11 +36,12 @@ UI.bind = function() {
   });
 
   $(document).on('click', '#octopus-record', function(click_event) {
-    // Put code to move scrubber here.
     if (globalTimer == null) {
+      history.data = {};
       globalTimer = setInterval(function() { history.time++; }, 1);
       $('#octopus-record').html('Stop');
     } else {
+      history.upload();
       clearInterval(globalTimer);
       $('#octopus-record').html('Record');
     }
@@ -167,7 +168,7 @@ UI.update_soundList = function() {
     }
 
     // draw the marks
-    if(this.marks.length != $('#soundlist #'+this.data.id+' .scrub-mark').length) {
+    if (this.marks.length != $('#soundlist #'+this.data.id+' .scrub-mark').length) {
       // remove all the marks
       $('#soundlist #'+this.data.id+' .scrub-mark').each(function() {
         $(this).remove();
@@ -202,12 +203,8 @@ UI.update_mixboard = function() {
   }
 
   // place the moving position bar
-  // TODO: Figure out how to find global time.
-  /*
-  var position = 100;
-  var left_offset = mixboard_div.outerWidth() * position/max_length;
+  var left_offset = mixboard_div.outerWidth() * history.time/history.length;
   scrub_bar.css('left', left_offset);
-  */
   
   $.each(octopus.songs, function() {
     // in here, THIS refers to the Song object.

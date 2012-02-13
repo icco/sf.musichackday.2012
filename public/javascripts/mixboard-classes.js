@@ -189,6 +189,15 @@ function History() {
   }
 
   this.save = function() {
-    localStorage[this.id] = JSON.stringify(this.data);
+    if (globalTimer != null)
+      localStorage[this.id] = JSON.stringify(this.data);
+  }
+
+  this.upload = function() {
+    $.ajax({
+      type: 'POST',
+      url: '/api/project/nat/reed/history.json',
+      data: { data: this.data }
+    });
   }
 }
