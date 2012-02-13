@@ -189,7 +189,8 @@ function History() {
   }
 
   this.save = function() {
-    localStorage[this.id] = JSON.stringify(this.data);
+    if (globalTimer != null)
+      localStorage[this.id] = JSON.stringify(this.data);
   }
 
   this.upload = function() {

@@ -37,9 +37,11 @@ UI.bind = function() {
 
   $(document).on('click', '#octopus-record', function(click_event) {
     if (globalTimer == null) {
+      history.data = {};
       globalTimer = setInterval(function() { history.time++; }, 1);
       $('#octopus-record').html('Stop');
     } else {
+      history.upload();
       clearInterval(globalTimer);
       $('#octopus-record').html('Record');
     }
