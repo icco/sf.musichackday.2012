@@ -38,7 +38,7 @@ UI.bind = function() {
   $(document).on('click', '#octopus-record', function(click_event) {
     // Put code to move scrubber here.
     if (globalTimer == null) {
-      globalTimer = setInterval(function() { recordTimer++; }, 1);
+      globalTimer = setInterval(function() { history.time++; }, 1);
       $('#octopus-record').html('Stop');
     } else {
       clearInterval(globalTimer);

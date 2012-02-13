@@ -9,7 +9,7 @@ var soundManager;
 var octopus = new Octopus();
 var history = new History();
 var globalTimer = null;
-var recordTimer = 0;
+history.time = 0;
 
 // This gets called to start everything up
 function main() {
