@@ -36,7 +36,6 @@ UI.bind = function() {
   });
 
   $(document).on('click', '#octopus-record', function(click_event) {
-    // Put code to move scrubber here.
     if (globalTimer == null) {
       globalTimer = setInterval(function() { history.time++; }, 1);
       $('#octopus-record').html('Stop');
@@ -202,12 +201,8 @@ UI.update_mixboard = function() {
   }
 
   // place the moving position bar
-  // TODO: Figure out how to find global time.
-  /*
-  var position = 100;
-  var left_offset = mixboard_div.outerWidth() * position/max_length;
+  var left_offset = mixboard_div.outerWidth() * history.time/history.length;
   scrub_bar.css('left', left_offset);
-  */
   
   $.each(octopus.songs, function() {
     // in here, THIS refers to the Song object.
