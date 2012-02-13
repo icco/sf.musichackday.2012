@@ -186,7 +186,7 @@ UI.update_soundList = function() {
     }
 
     // draw the marks
-    if(this.marks.length != $('#soundlist #'+this.data.id+' .scrub-mark').length) {
+    if (this.marks.length != $('#soundlist #'+this.data.id+' .scrub-mark').length) {
       // remove all the marks
       $('#soundlist #'+this.data.id+' .scrub-mark').each(function() {
         $(this).remove();
