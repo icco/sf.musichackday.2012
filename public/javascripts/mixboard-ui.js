@@ -186,12 +186,31 @@ UI.update_soundList = function() {
   });
 }
 
+// Draws and updates the scrub / position bar
+UI._draw_scrub_bar = function($div_to_scrub, current_time, total_duration) {
+  if (!$div_to_scrub.has('.scrub-bar').length) {
+    scrub_bar = UI.div_scrub_bar();
+	  timestamp = UI.DIV_GENERIC('scrub_timestamp');
+
+	  scrub_bar.append(timestamp);
+    $div_to_scrub.append(scrub_bar);
+  } else {
+    scrub_bar = $div_to_scrub.find('.scrub-bar');
+  }
+  
+  // place the moving position bar
+  var left_offset = $div_to_scrub.outerWidth() * current_time/total_duration;
+  scrub_bar.css('left', left_offset);
+}
+
 UI.update_mixboard = function() {
   var max_length = max_duration(octopus.songs);
   var mixboard_div = $('#mixboard');
   var mixboard_width = mixboard_div.outerWidth();
   var scrub_bar;
   
+  UI._draw_scrub_bar(mixboard_div, history.time, history.length);
+/*
   if (!mixboard_div.has('.scrub-bar').length) {
     scrub_bar = UI.div_scrub_bar();
 	  timestamp = UI.DIV_GENERIC('scrub_timestamp');
@@ -205,7 +224,7 @@ UI.update_mixboard = function() {
   // place the moving position bar
   var left_offset = mixboard_div.outerWidth() * history.time/history.length;
   scrub_bar.css('left', left_offset);
-  
+*/
   $.each(octopus.songs, function() {
     // in here, THIS refers to the Song object.
     var div;
