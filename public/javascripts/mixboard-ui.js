@@ -95,7 +95,7 @@ UI.bind = function() {
   }
 }
 
-// updates the site UI every 1/4 second
+// updates the site UI every 50 ms
 UI.mainLoop = function() {
   UI.update();
   setTimeout('UI.mainLoop()', 50);
@@ -269,14 +269,14 @@ UI.update_mixboard = function() {
       }
       
       if (changes['status'] == 'paused') {
-        console.log('paused');
+        //console.log('paused');
         var div = $('#mixboard #'+song_id+' div:last');
-        console.log(div);
+        //console.log(div);
         var start_time = div.data('start_ms');
-        console.log('start time ' + start_time);
-        console.log('time ' + time);
+        //console.log('start time ' + start_time);
+        //console.log('time ' + time);
         var width = ((time - start_time) / duration) * mixboard_width;
-        console.log('width ' + width);
+        //console.log('width ' + width);
         div.css('width', width);
       }
       

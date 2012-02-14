@@ -169,23 +169,43 @@ function sortMarks(a, b) {
 function History() {
   this.data = {};
   this.time = 0;
-  this.length = 600000; // ten minutes in miliseconds
+  this.length = 10000; // thirty seconds in miliseconds
 
   // Eventually this should be something like user/project.
   this.id = "mixboard";
 
   this.init = function() {
-    if (DEBUG) console.log("History initialized.");
+    if (DEBUG) console.log(">>> History initialized.");
   };
 
   this.add = function(song_id, state) {
     var newState = { };
     newState[song_id] = state;
 
+    // If this is the first state added to the history, start growing the lenght of history
+    var first;
+    for (first in this.data) break; // try to get the first object in this.data
+    if (!first) this._grow_total_time();
+    
     //if (DEBUG) console.log(this.data);
     this.data[this.time] = $.extend(this.data[this.time], newState);
-
     this.save();
+  }
+  
+  // when recording reaches 80% of this.time, make it bigger.
+  this._grow_total_time = function() {
+    // If the time played is greater than 1/3 of the total history length,
+    // increase the history length by 50%.
+    if (this.time > (this.length * 0.66)) {
+      var new_length = this.length * 1.5;
+      if (DEBUG) console.log(">>> growing hisory.length from " + this.length + " to " + new_length);
+      this.length = new_length;
+    }
+    
+    // check again 
+    var next_check = this.length * 0.8;
+    setTimeout('history._grow_total_time()', next_check);
+    console.log('next check in '+next_check);
   }
 
   this.save = function() {
